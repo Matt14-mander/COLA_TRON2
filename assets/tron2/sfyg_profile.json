@@ -1,0 +1,188 @@
+{
+  "variant": "SFYG_TRON2A",
+  "parameter_status": "simulation defaults; not hardware calibration; validate in Isaac before training",
+  "policy_joint_names": [
+    "proximal_pitch_L_Joint",
+    "proximal_roll_L_Joint",
+    "proximal_yaw_L_Joint",
+    "knee_L_Joint",
+    "ankle_pitch_L_Joint",
+    "proximal_pitch_R_Joint",
+    "proximal_roll_R_Joint",
+    "proximal_yaw_R_Joint",
+    "knee_R_Joint",
+    "ankle_pitch_R_Joint",
+    "arm1_Joint",
+    "arm2_Joint",
+    "arm3_Joint",
+    "arm4_Joint",
+    "arm5_Joint",
+    "arm6_Joint"
+  ],
+  "joint_parameters": {
+    "proximal_pitch_L_Joint": {
+      "default_position": -0.2,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 150.0,
+      "velocity_limit": 18.3
+    },
+    "proximal_roll_L_Joint": {
+      "default_position": 0.0,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 150.0,
+      "velocity_limit": 18.3
+    },
+    "proximal_yaw_L_Joint": {
+      "default_position": -3.141592653589793,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 22.52
+    },
+    "knee_L_Joint": {
+      "default_position": -0.4,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 150.0,
+      "velocity_limit": 18.3
+    },
+    "ankle_pitch_L_Joint": {
+      "default_position": 0.2,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 22.52
+    },
+    "proximal_pitch_R_Joint": {
+      "default_position": -0.2,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 150.0,
+      "velocity_limit": 18.3
+    },
+    "proximal_roll_R_Joint": {
+      "default_position": 0.0,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 150.0,
+      "velocity_limit": 18.3
+    },
+    "proximal_yaw_R_Joint": {
+      "default_position": 3.141592653589793,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 22.52
+    },
+    "knee_R_Joint": {
+      "default_position": -0.4,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 150.0,
+      "velocity_limit": 18.3
+    },
+    "ankle_pitch_R_Joint": {
+      "default_position": 0.2,
+      "stiffness": 100.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 22.52
+    },
+    "arm1_Joint": {
+      "default_position": 0.0,
+      "stiffness": 80.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 5.0
+    },
+    "arm2_Joint": {
+      "default_position": 0.75,
+      "stiffness": 80.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 5.0
+    },
+    "arm3_Joint": {
+      "default_position": -1.25,
+      "stiffness": 80.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 5.0
+    },
+    "arm4_Joint": {
+      "default_position": 0.0,
+      "stiffness": 80.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 5.0
+    },
+    "arm5_Joint": {
+      "default_position": 0.45,
+      "stiffness": 80.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 5.0
+    },
+    "arm6_Joint": {
+      "default_position": 0.0,
+      "stiffness": 80.0,
+      "damping": 4.0,
+      "effort_limit": 60.0,
+      "velocity_limit": 5.0
+    },
+    "gripper1_Joint": {
+      "default_position": 0.025,
+      "stiffness": 80.0,
+      "damping": 2.0,
+      "effort_limit": 10.0,
+      "velocity_limit": 3.0
+    },
+    "gripper2_Joint": {
+      "default_position": 0.025,
+      "stiffness": 80.0,
+      "damping": 2.0,
+      "effort_limit": 10.0,
+      "velocity_limit": 3.0
+    }
+  },
+  "base_position": [
+    0.0,
+    0.0,
+    0.6945866292069721
+  ],
+  "ee_body": "arm6_Link",
+  "ee_local_position": [
+    0.0,
+    0.0,
+    0.1358
+  ],
+  "ee_position_base": [
+    0.24074036600388032,
+    -0.07429209457201685,
+    0.9088710347752084
+  ],
+  "ee_quaternion_base": [
+    0.5330719974166647,
+    -0.18646147597964224,
+    0.46457963940623714,
+    -0.682079263865184
+  ],
+  "ee_body_quaternion_base": [
+    0.5330719974166647,
+    -0.18646147597964224,
+    0.46457963940623714,
+    -0.682079263865184
+  ],
+  "feet_body_names": [
+    "ankle_pitch_L_Link",
+    "ankle_pitch_R_Link"
+  ],
+  "bar_length": 1.0,
+  "bar_mass_range": [
+    0.8,
+    2.0
+  ],
+  "action_scale": 0.15
+}

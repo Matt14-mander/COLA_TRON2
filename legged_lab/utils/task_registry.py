@@ -8,6 +8,12 @@ class TaskRegistry:
         self.task_classes = {}
         self.env_cfgs = {}
         self.train_cfgs = {}
+        self.config_factories = {}
+
+    def register_factory(self, name, task_class, factory):
+        """Defer optional robot assets until that task is selected."""
+        self.task_classes[name] = task_class
+        self.config_factories[name] = factory
 
     def register(self, name: str, task_class: type[VecEnv], env_cfg: Any, train_cfg: Any) -> None:
         self.task_classes[name] = task_class
@@ -18,6 +24,8 @@ class TaskRegistry:
         return self.task_classes[name]
 
     def get_cfgs(self, name: str) -> tuple[Any, Any]:
+        if name in self.config_factories:
+            return self.config_factories[name]()
         train_cfg = self.train_cfgs[name]
         env_cfg = self.env_cfgs[name]
         return env_cfg, train_cfg

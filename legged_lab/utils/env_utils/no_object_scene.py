@@ -17,7 +17,7 @@ class NoObjectSceneCfg(LocomotionSceneCfg):
     def __init__(self, config: Any, physics_dt: float, step_dt: float):
         super().__init__(config, physics_dt, step_dt)
         self.foot_balance_contact_sensor = ContactSensorCfg(
-            prim_path="{ENV_REGEX_NS}/Robot/.*_ankle_roll_link",
+            prim_path="{ENV_REGEX_NS}/Robot/" + getattr(config, "foot_sensor_pattern", ".*_ankle_roll_link"),
             history_length=10,
             track_air_time=False,
             update_period=physics_dt,

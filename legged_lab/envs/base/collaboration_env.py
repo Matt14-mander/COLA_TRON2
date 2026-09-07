@@ -7,6 +7,7 @@ import os
 
 import numpy as np
 import torch
+from legged_lab.utils.joint_mapping import resolve_policy_joints, position_targets
 
 import isaaclab.sim as sim_utils
 import isaaclab.utils.math as math_utils
@@ -135,7 +136,10 @@ class FixedBarCollaborationEnv(VecEnv):
         self.extras = {}
         self.max_episode_length_s = self.cfg.scene.max_episode_length_s
         self.max_episode_length = np.ceil(self.max_episode_length_s / self.step_dt)
-        self.num_actions = 29
+        self.policy_joint_ids = resolve_policy_joints(
+            self.robot.data.joint_names, getattr(self.cfg.robot, "policy_joint_names", None)
+        )
+        self.num_actions = len(self.policy_joint_ids)
         self.clip_actions = self.cfg.normalization.clip_actions
         self.clip_obs = self.cfg.normalization.clip_observations
         self.action_scale = self.cfg.robot.action_scale
@@ -186,17 +190,19 @@ class FixedBarCollaborationEnv(VecEnv):
         if self.add_noise:
             actor_obs, _ = self.compute_current_observations()
             noise_scales = self.cfg.noise.noise_scales
+            pose_end = 4 + self.pose_command_generator.command.shape[-1]
+            joint_start = pose_end + 6
             self.noise_scale_vec = torch.zeros_like(actor_obs[0])
-            self.noise_scale_vec[18:21] = (
+            self.noise_scale_vec[pose_end : pose_end + 3] = (
                 noise_scales.ang_vel * self.obs_scales.ang_vel
             )
-            self.noise_scale_vec[21:24] = (
+            self.noise_scale_vec[pose_end + 3 : joint_start] = (
                 noise_scales.projected_gravity * self.obs_scales.projected_gravity
             )
-            self.noise_scale_vec[24:53] = (
+            self.noise_scale_vec[joint_start : joint_start + self.num_actions] = (
                 noise_scales.joint_pos * self.obs_scales.joint_pos
             )
-            self.noise_scale_vec[53:82] = (
+            self.noise_scale_vec[joint_start + self.num_actions : joint_start + 2 * self.num_actions] = (
                 noise_scales.joint_vel * self.obs_scales.joint_vel
             )
             if self.cfg.scene.height_scanner.enable_height_scan:
@@ -365,7 +371,7 @@ class FixedBarCollaborationEnv(VecEnv):
 
         target = self.command_generator.link_height_command_b[:, 0].clone()
         ankle_ids, _ = self.robot.find_bodies(
-            ["left_ankle_roll_link", "right_ankle_roll_link"]
+            self.cfg.robot.feet_body_names
         )
         ankle_heights = self.robot.data.body_pos_w[:, ankle_ids, 2]
         height_cfg = self.cfg.support_height_control
@@ -619,8 +625,8 @@ class FixedBarCollaborationEnv(VecEnv):
         pose_command = self.pose_command_generator.command
         angular_velocity = robot.data.root_ang_vel_b
         projected_gravity = robot.data.projected_gravity_b
-        joint_position = (robot.data.joint_pos - robot.data.default_joint_pos)[:, :29]
-        joint_velocity = (robot.data.joint_vel - robot.data.default_joint_vel)[:, :29]
+        joint_position = (robot.data.joint_pos - robot.data.default_joint_pos)[:, self.policy_joint_ids]
+        joint_velocity = (robot.data.joint_vel - robot.data.default_joint_vel)[:, self.policy_joint_ids]
         action = self.action_buffer._circular_buffer.buffer[:, -1, :]
 
         command_w = torch.zeros(self.num_envs, 3, device=self.device)
@@ -800,7 +806,9 @@ class FixedBarCollaborationEnv(VecEnv):
         clipped_actions = torch.clamp(
             delayed_actions, -self.clip_actions, self.clip_actions
         ).to(self.device)
-        processed_actions = clipped_actions * self.action_scale + self.robot.data.default_joint_pos
+        processed_actions = position_targets(
+            self.robot.data.default_joint_pos, clipped_actions, self.policy_joint_ids, self.action_scale
+        )
 
         # One controller update per 2.5 ms physics substep: exactly 400 Hz.
         for _ in range(self.cfg.sim.decimation):
@@ -837,7 +845,7 @@ class FixedBarCollaborationEnv(VecEnv):
     def check_reset(self):
         net_contact_forces = self.contact_sensor.data.net_forces_w_history
         ankle_ids, _ = self.robot.find_bodies(
-            ["left_ankle_roll_link", "right_ankle_roll_link"]
+            self.cfg.robot.feet_body_names
         )
         lower_ankle_height = (
             torch.min(self.robot.data.body_pos_w[:, ankle_ids, 2], dim=1).values

@@ -13,6 +13,7 @@ parser.add_argument(
     required=True,
     help="Train the phase-2 teacher or phase-3 student.",
 )
+parser.add_argument("--robot", choices=("g1", "tron2_sfyg"), default="g1")
 parser.add_argument("--num_envs", type=int, default=None)
 parser.add_argument("--seed", type=int, default=None)
 parser.add_argument(
@@ -24,7 +25,7 @@ parser.add_argument(
 parser.add_argument(
     "--right_fixed_rank_count",
     type=int,
-    default=3,
+    default=None,
     help="Number of middle ranks assigned to right-weld scenes.",
 )
 
@@ -39,6 +40,7 @@ from legged_lab.utils.task_registry import task_registry
 from legged_lab.utils.app import run_with_simulation_app
 from legged_lab.utils.static_population import (
     assign_three_static_populations,
+    assign_static_population,
 )
 from rsl_rl.runners import OnPolicyRunnerWholePipeResi
 from isaaclab.utils.io import dump_yaml
@@ -167,18 +169,25 @@ def train():
             "individual registered task for a one-GPU smoke test"
         )
 
+    if args_cli.right_fixed_rank_count is None:
+        args_cli.right_fixed_rank_count = 0 if args_cli.robot == "tron2_sfyg" else 3
+    if args_cli.robot == "tron2_sfyg" and args_cli.right_fixed_rank_count != 0:
+        raise ValueError("SFYG has one arm: --right_fixed_rank_count must be 0")
     world_size = int(os.environ["WORLD_SIZE"])
     global_rank = int(os.environ["RANK"])
-    assignment = assign_three_static_populations(
-        global_rank,
-        world_size,
-        no_object_rank_count=args_cli.no_object_rank_count,
-        right_fixed_rank_count=args_cli.right_fixed_rank_count,
-    )
-
-    tasks = TASKS[args_cli.phase]
+    if args_cli.robot == "tron2_sfyg":
+        assignment = assign_static_population(global_rank, world_size, args_cli.no_object_rank_count)
+        label = "teacher" if args_cli.phase == 2 else "student"
+        prefix = f"tron2_sfyg_phase_{args_cli.phase}_{label}"
+        tasks = {"left": prefix + "_fixed_bar", "no_object": prefix + "_no_object"}
+    else:
+        assignment = assign_three_static_populations(
+            global_rank, world_size, no_object_rank_count=args_cli.no_object_rank_count,
+            right_fixed_rank_count=args_cli.right_fixed_rank_count,
+        )
+        tasks = TASKS[args_cli.phase]
     fixed_bar_env_cfg, agent_cfg = task_registry.get_cfgs(tasks["left"])
-    right_fixed_env_cfg, _ = task_registry.get_cfgs(tasks["right"])
+    right_fixed_env_cfg = task_registry.get_cfgs(tasks["right"])[0] if "right" in tasks else None
     no_object_env_cfg, _ = task_registry.get_cfgs(tasks["no_object"])
     if assignment.is_no_object:
         env_cfg = no_object_env_cfg
@@ -196,7 +205,8 @@ def train():
     if args_cli.num_envs is not None:
         fixed_bar_env_cfg.scene.num_envs = args_cli.num_envs
         no_object_env_cfg.scene.num_envs = args_cli.num_envs
-        right_fixed_env_cfg.scene.num_envs = args_cli.num_envs
+        if right_fixed_env_cfg is not None:
+            right_fixed_env_cfg.scene.num_envs = args_cli.num_envs
 
     agent_cfg = update_rsl_rl_cfg(agent_cfg, args_cli)
     env_cfg.device = f"cuda:{app_launcher.local_rank}"
@@ -265,10 +275,8 @@ def train():
         os.makedirs(os.path.join(log_dir, "params"), exist_ok=True)
         dump_yaml(os.path.join(log_dir, "params", "env_fixed_bar.yaml"), fixed_bar_env_cfg)
         dump_yaml(os.path.join(log_dir, "params", "env_no_object.yaml"), no_object_env_cfg)
-        dump_yaml(
-            os.path.join(log_dir, "params", "env_right_fixed.yaml"),
-            right_fixed_env_cfg,
-        )
+        if right_fixed_env_cfg is not None:
+            dump_yaml(os.path.join(log_dir, "params", "env_right_fixed.yaml"), right_fixed_env_cfg)
         dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
 
     runner.learn(

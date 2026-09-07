@@ -1,0 +1,1405 @@
+[
+  {
+    "variant": "DACH_TRON2A",
+    "urdf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\DACH_TRON2A\\urdf\\robot.urdf",
+    "usd": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\DACH_TRON2A\\usd\\robot.usd",
+    "usd_exists": true,
+    "mjcf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\DACH_TRON2A\\xml\\robot.xml",
+    "mjcf_exists": true,
+    "movable_joint_count": 16,
+    "urdf_joint_order": [
+      "head_yaw_Joint",
+      "head_pitch_Joint",
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "elbow_L_Joint",
+      "wrist_yaw_L_Joint",
+      "wrist_pitch_L_Joint",
+      "wrist_roll_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "elbow_R_Joint",
+      "wrist_yaw_R_Joint",
+      "wrist_pitch_R_Joint",
+      "wrist_roll_R_Joint"
+    ],
+    "joints": [
+      {
+        "name": "head_yaw_Joint",
+        "type": "revolute",
+        "parent": "head_base_Link",
+        "child": "head_yaw_Link",
+        "limits": {
+          "lower": -1.5707963267948966,
+          "upper": 1.5707963267948966,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "head_pitch_Joint",
+        "type": "revolute",
+        "parent": "head_yaw_Link",
+        "child": "head_pitch_Link",
+        "limits": {
+          "lower": -0.7853981633974483,
+          "upper": 1.0471975511965976,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "proximal_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_L_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_L_Link",
+        "child": "proximal_roll_L_Link",
+        "limits": {
+          "lower": -0.2617993877991494,
+          "upper": 3.193952531149623,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_L_Link",
+        "child": "proximal_yaw_L_Link",
+        "limits": {
+          "lower": -3.6651914291880923,
+          "upper": 1.4835298641951802,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "elbow_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_L_Link",
+        "child": "elbow_L_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.5235987755982988,
+          "effort": 70.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "wrist_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "elbow_L_Link",
+        "child": "wrist_yaw_L_Link",
+        "limits": {
+          "lower": -1.7453292519943295,
+          "upper": 1.3962634015954636,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "wrist_yaw_L_Link",
+        "child": "wrist_pitch_L_Link",
+        "limits": {
+          "lower": -0.7853981633974483,
+          "upper": 0.7853981633974483,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_roll_L_Joint",
+        "type": "revolute",
+        "parent": "wrist_pitch_L_Link",
+        "child": "wrist_roll_L_Link",
+        "limits": {
+          "lower": -1.5707963267948966,
+          "upper": 1.5707963267948966,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "proximal_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_R_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_R_Link",
+        "child": "proximal_roll_R_Link",
+        "limits": {
+          "lower": -3.193952531149623,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_R_Link",
+        "child": "proximal_yaw_R_Link",
+        "limits": {
+          "lower": -1.4835298641951802,
+          "upper": 3.6651914291880923,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "elbow_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_R_Link",
+        "child": "elbow_R_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.5235987755982988,
+          "effort": 70.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "wrist_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "elbow_R_Link",
+        "child": "wrist_yaw_R_Link",
+        "limits": {
+          "lower": -1.3962634015954636,
+          "upper": 1.7453292519943295,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "wrist_yaw_R_Link",
+        "child": "wrist_pitch_R_Link",
+        "limits": {
+          "lower": -0.7853981633974483,
+          "upper": 0.7853981633974483,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_roll_R_Joint",
+        "type": "revolute",
+        "parent": "wrist_pitch_R_Link",
+        "child": "wrist_roll_R_Link",
+        "limits": {
+          "lower": -1.5707963267948966,
+          "upper": 1.5707963267948966,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      }
+    ],
+    "body_names": [
+      "base_Link",
+      "base_imu",
+      "base_2_Link",
+      "base_3_Link",
+      "head_base_Link",
+      "head_yaw_Link",
+      "head_pitch_Link",
+      "proximal_pitch_L_Link",
+      "proximal_roll_L_Link",
+      "proximal_yaw_L_Link",
+      "elbow_L_Link",
+      "wrist_yaw_L_Link",
+      "wrist_pitch_L_Link",
+      "wrist_roll_L_Link",
+      "grasper_L_Link",
+      "proximal_pitch_R_Link",
+      "proximal_roll_R_Link",
+      "proximal_yaw_R_Link",
+      "elbow_R_Link",
+      "wrist_yaw_R_Link",
+      "wrist_pitch_R_Link",
+      "wrist_roll_R_Link",
+      "grasper_R_Link",
+      "d435_Link",
+      "d435_optical_frame"
+    ],
+    "missing_meshes": [],
+    "required_ros_package_aliases": {},
+    "training_ready": false,
+    "required_configuration": [
+      "Selected hardware variant and policy-controlled joints",
+      "PD gains, default pose, action scales and control modes",
+      "Feet/end-effector frames and task topology",
+      "TRON2 observation/reward configuration and compatible rsl_rl networks"
+    ]
+  },
+  {
+    "variant": "DA_TRON2A",
+    "urdf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\DA_TRON2A\\urdf\\robot.urdf",
+    "usd": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\DA_TRON2A\\usd\\robot.usd",
+    "usd_exists": true,
+    "mjcf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\DA_TRON2A\\xml\\robot.xml",
+    "mjcf_exists": true,
+    "movable_joint_count": 14,
+    "urdf_joint_order": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "elbow_L_Joint",
+      "wrist_yaw_L_Joint",
+      "wrist_pitch_L_Joint",
+      "wrist_roll_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "elbow_R_Joint",
+      "wrist_yaw_R_Joint",
+      "wrist_pitch_R_Joint",
+      "wrist_roll_R_Joint"
+    ],
+    "joints": [
+      {
+        "name": "proximal_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_L_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_L_Link",
+        "child": "proximal_roll_L_Link",
+        "limits": {
+          "lower": -0.2617993877991494,
+          "upper": 3.1939524787897455,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_L_Link",
+        "child": "proximal_yaw_L_Link",
+        "limits": {
+          "lower": -3.6651914291880923,
+          "upper": 1.4835298641951802,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "elbow_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_L_Link",
+        "child": "elbow_L_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.5235987755982988,
+          "effort": 70.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "wrist_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "elbow_L_Link",
+        "child": "wrist_yaw_L_Link",
+        "limits": {
+          "lower": -1.7453292519943295,
+          "upper": 1.3962634015954636,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "wrist_yaw_L_Link",
+        "child": "wrist_pitch_L_Link",
+        "limits": {
+          "lower": -0.7853981633974483,
+          "upper": 0.7853981633974483,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_roll_L_Joint",
+        "type": "revolute",
+        "parent": "wrist_pitch_L_Link",
+        "child": "wrist_roll_L_Link",
+        "limits": {
+          "lower": -1.5707963267948966,
+          "upper": 1.5707963267948966,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "proximal_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_R_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_R_Link",
+        "child": "proximal_roll_R_Link",
+        "limits": {
+          "lower": -3.1939524787897455,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_R_Link",
+        "child": "proximal_yaw_R_Link",
+        "limits": {
+          "lower": -1.4835298641951802,
+          "upper": 3.6651914291880923,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "elbow_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_R_Link",
+        "child": "elbow_R_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.5235987755982988,
+          "effort": 70.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "wrist_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "elbow_R_Link",
+        "child": "wrist_yaw_R_Link",
+        "limits": {
+          "lower": -1.3962634015954636,
+          "upper": 1.7453292519943295,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "wrist_yaw_R_Link",
+        "child": "wrist_pitch_R_Link",
+        "limits": {
+          "lower": -0.7853981633974483,
+          "upper": 0.7853981633974483,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      },
+      {
+        "name": "wrist_roll_R_Joint",
+        "type": "revolute",
+        "parent": "wrist_pitch_R_Link",
+        "child": "wrist_roll_R_Link",
+        "limits": {
+          "lower": -1.5707963267948966,
+          "upper": 1.5707963267948966,
+          "effort": 20.0,
+          "velocity": 17.8
+        }
+      }
+    ],
+    "body_names": [
+      "base_Link",
+      "base_imu",
+      "base_2_Link",
+      "base_3_Link",
+      "proximal_pitch_L_Link",
+      "proximal_roll_L_Link",
+      "proximal_yaw_L_Link",
+      "elbow_L_Link",
+      "wrist_yaw_L_Link",
+      "wrist_pitch_L_Link",
+      "wrist_roll_L_Link",
+      "grasper_L_Link",
+      "proximal_pitch_R_Link",
+      "proximal_roll_R_Link",
+      "proximal_yaw_R_Link",
+      "elbow_R_Link",
+      "wrist_yaw_R_Link",
+      "wrist_pitch_R_Link",
+      "wrist_roll_R_Link",
+      "grasper_R_Link",
+      "d435_Link",
+      "d435_optical_frame"
+    ],
+    "missing_meshes": [],
+    "required_ros_package_aliases": {},
+    "training_ready": false,
+    "required_configuration": [
+      "Selected hardware variant and policy-controlled joints",
+      "PD gains, default pose, action scales and control modes",
+      "Feet/end-effector frames and task topology",
+      "TRON2 observation/reward configuration and compatible rsl_rl networks"
+    ]
+  },
+  {
+    "variant": "SFYG_TRON2A",
+    "urdf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SFYG_TRON2A\\urdf\\robot.urdf",
+    "usd": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SFYG_TRON2A\\usd\\robot.usd",
+    "usd_exists": true,
+    "mjcf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SFYG_TRON2A\\xml\\robot.xml",
+    "mjcf_exists": true,
+    "movable_joint_count": 18,
+    "urdf_joint_order": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "ankle_pitch_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "ankle_pitch_R_Joint",
+      "arm1_Joint",
+      "arm2_Joint",
+      "arm3_Joint",
+      "arm4_Joint",
+      "arm5_Joint",
+      "arm6_Joint",
+      "gripper1_Joint",
+      "gripper2_Joint"
+    ],
+    "joints": [
+      {
+        "name": "proximal_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_L_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_L_Link",
+        "child": "proximal_roll_L_Link",
+        "limits": {
+          "lower": -0.2617993877991494,
+          "upper": 3.1939524787897455,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_L_Link",
+        "child": "proximal_yaw_L_Link",
+        "limits": {
+          "lower": -3.6651914291880923,
+          "upper": 1.4835298641951802,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_L_Link",
+        "child": "knee_L_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "ankle_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "knee_L_Link",
+        "child": "ankle_pitch_L_Link",
+        "limits": {
+          "lower": -1.6231562043547265,
+          "upper": 1.6231562043547265,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "proximal_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_R_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_R_Link",
+        "child": "proximal_roll_R_Link",
+        "limits": {
+          "lower": -3.1939524787897455,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_R_Link",
+        "child": "proximal_yaw_R_Link",
+        "limits": {
+          "lower": -1.4835298641951802,
+          "upper": 3.6651914291880923,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_R_Link",
+        "child": "knee_R_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "ankle_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "knee_R_Link",
+        "child": "ankle_pitch_R_Link",
+        "limits": {
+          "lower": -1.6231562043547265,
+          "upper": 1.6231562043547265,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "arm1_Joint",
+        "type": "revolute",
+        "parent": "arm_base_Link",
+        "child": "arm1_Link",
+        "limits": {
+          "lower": -2.6179938081783245,
+          "upper": 2.6179938081783245,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm2_Joint",
+        "type": "revolute",
+        "parent": "arm1_Link",
+        "child": "arm2_Link",
+        "limits": {
+          "lower": 0.0,
+          "upper": 3.141592601229916,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm3_Joint",
+        "type": "revolute",
+        "parent": "arm2_Link",
+        "child": "arm3_Link",
+        "limits": {
+          "lower": -2.967059693483775,
+          "upper": 0.0,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm4_Joint",
+        "type": "revolute",
+        "parent": "arm3_Link",
+        "child": "arm4_Link",
+        "limits": {
+          "lower": -1.5533429993683683,
+          "upper": 1.5533429993683683,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm5_Joint",
+        "type": "revolute",
+        "parent": "arm4_Link",
+        "child": "arm5_Link",
+        "limits": {
+          "lower": -1.5533429993683683,
+          "upper": 1.5533429993683683,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm6_Joint",
+        "type": "revolute",
+        "parent": "arm5_Link",
+        "child": "arm6_Link",
+        "limits": {
+          "lower": -2.0943951023931953,
+          "upper": 2.0943951023931953,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "gripper1_Joint",
+        "type": "prismatic",
+        "parent": "gripper_base_Link",
+        "child": "gripper1_Link",
+        "limits": {
+          "lower": 0.0,
+          "upper": 0.050000000424915834,
+          "effort": 10.0,
+          "velocity": 3.0
+        }
+      },
+      {
+        "name": "gripper2_Joint",
+        "type": "prismatic",
+        "parent": "gripper_base_Link",
+        "child": "gripper2_Link",
+        "limits": {
+          "lower": -0.0,
+          "upper": 0.050000000424915834,
+          "effort": 10.0,
+          "velocity": 3.0
+        }
+      }
+    ],
+    "body_names": [
+      "base_Link",
+      "base_imu",
+      "proximal_pitch_L_Link",
+      "proximal_roll_L_Link",
+      "proximal_yaw_L_Link",
+      "knee_L_Link",
+      "ankle_pitch_L_Link",
+      "d435_Link",
+      "d435_optical_frame",
+      "proximal_pitch_R_Link",
+      "proximal_roll_R_Link",
+      "proximal_yaw_R_Link",
+      "knee_R_Link",
+      "ankle_pitch_R_Link",
+      "transition_Link",
+      "arm_base_Link",
+      "arm1_Link",
+      "arm2_Link",
+      "arm3_Link",
+      "arm4_Link",
+      "arm5_Link",
+      "arm6_Link",
+      "gripper_base_Link",
+      "gripper1_Link",
+      "gripper2_Link",
+      "antenna_L_Link",
+      "antenna_R_Link",
+      "camera_mount_Link",
+      "radar_Link"
+    ],
+    "missing_meshes": [],
+    "required_ros_package_aliases": {
+      "bipedal_robot": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SFYG_TRON2A"
+    },
+    "training_ready": false,
+    "required_configuration": [
+      "Selected hardware variant and policy-controlled joints",
+      "PD gains, default pose, action scales and control modes",
+      "Feet/end-effector frames and task topology",
+      "TRON2 observation/reward configuration and compatible rsl_rl networks"
+    ]
+  },
+  {
+    "variant": "SF_TRON2A",
+    "urdf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SF_TRON2A\\urdf\\robot.urdf",
+    "usd": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SF_TRON2A\\usd\\robot.usd",
+    "usd_exists": true,
+    "mjcf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SF_TRON2A\\xml\\robot.xml",
+    "mjcf_exists": true,
+    "movable_joint_count": 10,
+    "urdf_joint_order": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "ankle_pitch_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "ankle_pitch_R_Joint"
+    ],
+    "joints": [
+      {
+        "name": "proximal_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_L_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_L_Link",
+        "child": "proximal_roll_L_Link",
+        "limits": {
+          "lower": -0.2617993877991494,
+          "upper": 3.1939524787897455,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_L_Link",
+        "child": "proximal_yaw_L_Link",
+        "limits": {
+          "lower": -3.6651914291880923,
+          "upper": 1.4835298641951802,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_L_Link",
+        "child": "knee_L_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "ankle_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "knee_L_Link",
+        "child": "ankle_pitch_L_Link",
+        "limits": {
+          "lower": -1.6231562043547265,
+          "upper": 1.6231562043547265,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "proximal_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_R_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_R_Link",
+        "child": "proximal_roll_R_Link",
+        "limits": {
+          "lower": -3.1939524787897455,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_R_Link",
+        "child": "proximal_yaw_R_Link",
+        "limits": {
+          "lower": -1.4835298641951802,
+          "upper": 3.6651914291880923,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_R_Link",
+        "child": "knee_R_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "ankle_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "knee_R_Link",
+        "child": "ankle_pitch_R_Link",
+        "limits": {
+          "lower": -1.6231562043547265,
+          "upper": 1.6231562043547265,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      }
+    ],
+    "body_names": [
+      "base_Link",
+      "base_imu",
+      "proximal_pitch_L_Link",
+      "proximal_roll_L_Link",
+      "proximal_yaw_L_Link",
+      "knee_L_Link",
+      "ankle_pitch_L_Link",
+      "proximal_pitch_R_Link",
+      "proximal_roll_R_Link",
+      "proximal_yaw_R_Link",
+      "knee_R_Link",
+      "ankle_pitch_R_Link",
+      "d435_Link",
+      "d435_optical_frame"
+    ],
+    "missing_meshes": [],
+    "required_ros_package_aliases": {
+      "bipedal_robot": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\SF_TRON2A"
+    },
+    "training_ready": false,
+    "required_configuration": [
+      "Selected hardware variant and policy-controlled joints",
+      "PD gains, default pose, action scales and control modes",
+      "Feet/end-effector frames and task topology",
+      "TRON2 observation/reward configuration and compatible rsl_rl networks"
+    ]
+  },
+  {
+    "variant": "WFYG_TRON2A",
+    "urdf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WFYG_TRON2A\\urdf\\robot.urdf",
+    "usd": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WFYG_TRON2A\\usd\\robot.usd",
+    "usd_exists": true,
+    "mjcf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WFYG_TRON2A\\xml\\robot.xml",
+    "mjcf_exists": true,
+    "movable_joint_count": 18,
+    "urdf_joint_order": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "wheel_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "wheel_R_Joint",
+      "arm1_Joint",
+      "arm2_Joint",
+      "arm3_Joint",
+      "arm4_Joint",
+      "arm5_Joint",
+      "arm6_Joint",
+      "gripper1_Joint",
+      "gripper2_Joint"
+    ],
+    "joints": [
+      {
+        "name": "proximal_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_L_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_L_Link",
+        "child": "proximal_roll_L_Link",
+        "limits": {
+          "lower": -0.2617993877991494,
+          "upper": 3.193952531149623,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_L_Link",
+        "child": "proximal_yaw_L_Link",
+        "limits": {
+          "lower": -3.6651914291880923,
+          "upper": 1.4835298641951802,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_L_Link",
+        "child": "knee_L_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "wheel_L_Joint",
+        "type": "revolute",
+        "parent": "knee_L_Link",
+        "child": "wheel_L_Link",
+        "limits": {
+          "lower": -1745329.2519943295,
+          "upper": 1745329.2519943295,
+          "effort": 22.0,
+          "velocity": 41.89
+        }
+      },
+      {
+        "name": "proximal_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_R_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_R_Link",
+        "child": "proximal_roll_R_Link",
+        "limits": {
+          "lower": -3.193952531149623,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_R_Link",
+        "child": "proximal_yaw_R_Link",
+        "limits": {
+          "lower": -1.4835298641951802,
+          "upper": 3.6651914291880923,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_R_Link",
+        "child": "knee_R_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "wheel_R_Joint",
+        "type": "revolute",
+        "parent": "knee_R_Link",
+        "child": "wheel_R_Link",
+        "limits": {
+          "lower": -1745329.2519943295,
+          "upper": 1745329.2519943295,
+          "effort": 22.0,
+          "velocity": 41.89
+        }
+      },
+      {
+        "name": "arm1_Joint",
+        "type": "revolute",
+        "parent": "arm_base_Link",
+        "child": "arm1_Link",
+        "limits": {
+          "lower": -2.6179938081783245,
+          "upper": 2.6179938081783245,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm2_Joint",
+        "type": "revolute",
+        "parent": "arm1_Link",
+        "child": "arm2_Link",
+        "limits": {
+          "lower": 0.0,
+          "upper": 3.141592601229916,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm3_Joint",
+        "type": "revolute",
+        "parent": "arm2_Link",
+        "child": "arm3_Link",
+        "limits": {
+          "lower": -2.967059693483775,
+          "upper": 0.0,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm4_Joint",
+        "type": "revolute",
+        "parent": "arm3_Link",
+        "child": "arm4_Link",
+        "limits": {
+          "lower": -1.5533429993683683,
+          "upper": 1.5533429993683683,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm5_Joint",
+        "type": "revolute",
+        "parent": "arm4_Link",
+        "child": "arm5_Link",
+        "limits": {
+          "lower": -1.5533429993683683,
+          "upper": 1.5533429993683683,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "arm6_Joint",
+        "type": "revolute",
+        "parent": "arm5_Link",
+        "child": "arm6_Link",
+        "limits": {
+          "lower": -2.0943951023931953,
+          "upper": 2.0943951023931953,
+          "effort": 100.0,
+          "velocity": 5.0
+        }
+      },
+      {
+        "name": "gripper1_Joint",
+        "type": "prismatic",
+        "parent": "gripper_base_Link",
+        "child": "gripper1_Link",
+        "limits": {
+          "lower": 0.0,
+          "upper": 0.050000000424915834,
+          "effort": 10.0,
+          "velocity": 3.0
+        }
+      },
+      {
+        "name": "gripper2_Joint",
+        "type": "prismatic",
+        "parent": "gripper_base_Link",
+        "child": "gripper2_Link",
+        "limits": {
+          "lower": -0.0,
+          "upper": 0.050000000424915834,
+          "effort": 10.0,
+          "velocity": 3.0
+        }
+      }
+    ],
+    "body_names": [
+      "base_Link",
+      "base_imu",
+      "proximal_pitch_L_Link",
+      "proximal_roll_L_Link",
+      "proximal_yaw_L_Link",
+      "knee_L_Link",
+      "wheel_L_Link",
+      "proximal_pitch_R_Link",
+      "proximal_roll_R_Link",
+      "proximal_yaw_R_Link",
+      "knee_R_Link",
+      "wheel_R_Link",
+      "d435_Link",
+      "d435_optical_frame",
+      "transition_Link",
+      "arm_base_Link",
+      "arm1_Link",
+      "arm2_Link",
+      "arm3_Link",
+      "arm4_Link",
+      "arm5_Link",
+      "arm6_Link",
+      "gripper_base_Link",
+      "gripper1_Link",
+      "gripper2_Link",
+      "antenna_L_Link",
+      "antenna_R_Link",
+      "camera_mount_Link",
+      "radar_Link"
+    ],
+    "missing_meshes": [],
+    "required_ros_package_aliases": {
+      "bipedal_robot": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WFYG_TRON2A"
+    },
+    "training_ready": false,
+    "required_configuration": [
+      "Selected hardware variant and policy-controlled joints",
+      "PD gains, default pose, action scales and control modes",
+      "Feet/end-effector frames and task topology",
+      "TRON2 observation/reward configuration and compatible rsl_rl networks"
+    ]
+  },
+  {
+    "variant": "WF_TRON2A",
+    "urdf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WF_TRON2A\\urdf\\robot.urdf",
+    "usd": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WF_TRON2A\\usd\\robot.usd",
+    "usd_exists": true,
+    "mjcf": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WF_TRON2A\\xml\\robot.xml",
+    "mjcf_exists": true,
+    "movable_joint_count": 10,
+    "urdf_joint_order": [
+      "proximal_pitch_L_Joint",
+      "proximal_roll_L_Joint",
+      "proximal_yaw_L_Joint",
+      "knee_L_Joint",
+      "wheel_L_Joint",
+      "proximal_pitch_R_Joint",
+      "proximal_roll_R_Joint",
+      "proximal_yaw_R_Joint",
+      "knee_R_Joint",
+      "wheel_R_Joint"
+    ],
+    "joints": [
+      {
+        "name": "proximal_pitch_L_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_L_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_L_Link",
+        "child": "proximal_roll_L_Link",
+        "limits": {
+          "lower": -0.2617993877991494,
+          "upper": 3.1939524787897455,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_L_Link",
+        "child": "proximal_yaw_L_Link",
+        "limits": {
+          "lower": -3.6651914291880923,
+          "upper": 1.4835298641951802,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_L_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_L_Link",
+        "child": "knee_L_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "wheel_L_Joint",
+        "type": "revolute",
+        "parent": "knee_L_Link",
+        "child": "wheel_L_Link",
+        "limits": {
+          "lower": -1745329.2519943295,
+          "upper": 1745329.2519943295,
+          "effort": 22.0,
+          "velocity": 41.89
+        }
+      },
+      {
+        "name": "proximal_pitch_R_Joint",
+        "type": "revolute",
+        "parent": "base_Link",
+        "child": "proximal_pitch_R_Link",
+        "limits": {
+          "lower": -3.141592653589793,
+          "upper": 2.600540585471551,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_roll_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_pitch_R_Link",
+        "child": "proximal_roll_R_Link",
+        "limits": {
+          "lower": -3.1939524787897455,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "proximal_yaw_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_roll_R_Link",
+        "child": "proximal_yaw_R_Link",
+        "limits": {
+          "lower": -1.4835298641951802,
+          "upper": 3.6651914291880923,
+          "effort": 60.0,
+          "velocity": 22.52
+        }
+      },
+      {
+        "name": "knee_R_Joint",
+        "type": "revolute",
+        "parent": "proximal_yaw_R_Link",
+        "child": "knee_R_Link",
+        "limits": {
+          "lower": -2.6179938779914944,
+          "upper": 0.2617993877991494,
+          "effort": 150.0,
+          "velocity": 18.3
+        }
+      },
+      {
+        "name": "wheel_R_Joint",
+        "type": "revolute",
+        "parent": "knee_R_Link",
+        "child": "wheel_R_Link",
+        "limits": {
+          "lower": -1745329.2519943295,
+          "upper": 1745329.2519943295,
+          "effort": 22.0,
+          "velocity": 41.89
+        }
+      }
+    ],
+    "body_names": [
+      "base_Link",
+      "base_imu",
+      "proximal_pitch_L_Link",
+      "proximal_roll_L_Link",
+      "proximal_yaw_L_Link",
+      "knee_L_Link",
+      "wheel_L_Link",
+      "proximal_pitch_R_Link",
+      "proximal_roll_R_Link",
+      "proximal_yaw_R_Link",
+      "knee_R_Link",
+      "wheel_R_Link",
+      "d435_Link",
+      "d435_optical_frame"
+    ],
+    "missing_meshes": [],
+    "required_ros_package_aliases": {
+      "bipedal_robot": "E:\\Robot\\Sustech-多人形协作\\Multiple_Humanoid_Cooperative_Transportation\\tron2-robot-description\\tron2\\WF_TRON2A"
+    },
+    "training_ready": false,
+    "required_configuration": [
+      "Selected hardware variant and policy-controlled joints",
+      "PD gains, default pose, action scales and control modes",
+      "Feet/end-effector frames and task topology",
+      "TRON2 observation/reward configuration and compatible rsl_rl networks"
+    ]
+  }
+]

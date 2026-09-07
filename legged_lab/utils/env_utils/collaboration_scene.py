@@ -94,14 +94,14 @@ class CollaborationSceneCfg(InteractiveSceneCfg):
 
         self.fixed_bar_attachments = AssetBaseCfg(
             prim_path="{ENV_REGEX_NS}/FixedBarAttachments",
-            spawn=FixedBarAttachmentCfg(
+            spawn=getattr(config, "bar_attachment", None) or FixedBarAttachmentCfg(
                 fixed_side=fixed_side,
                 left_bar_position=(0.0, 0.148661419, 0.0),
                 right_bar_position=(0.0, -0.148651419, 0.0),
             ),
         )
         self.foot_balance_contact_sensor = ContactSensorCfg(
-            prim_path="{ENV_REGEX_NS}/Robot/.*_ankle_roll_link",
+            prim_path="{ENV_REGEX_NS}/Robot/" + getattr(config, "foot_sensor_pattern", ".*_ankle_roll_link"),
             history_length=10,
             track_air_time=False,
             update_period=physics_dt,

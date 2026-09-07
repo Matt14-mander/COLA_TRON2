@@ -47,6 +47,8 @@ class LocomotionSceneSettingsCfg:
 class LocomotionRobotCfg:
     actor_obs_history_length: int = 10
     critic_obs_history_length: int = 10
+    single_arm: bool = False
+    policy_joint_names: list[str] | None = None
     action_scale: float = 0.25
     terminate_contacts_body_names: list = []
     feet_body_names: list = []

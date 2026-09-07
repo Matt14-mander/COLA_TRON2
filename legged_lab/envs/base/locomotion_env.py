@@ -2,6 +2,7 @@
 
 from legged_lab.envs.base.locomotion_config import LocomotionEnvCfg
 import torch
+from legged_lab.utils.joint_mapping import resolve_policy_joints, position_targets
 from rsl_rl.env import VecEnv
 import isaaclab.sim as sim_utils
 from isaaclab.sim import SimulationContext, PhysxCfg
@@ -132,10 +133,11 @@ class LocomotionEnv(VecEnv):
 
         self.max_episode_length_s = self.cfg.scene.max_episode_length_s
         self.max_episode_length = np.ceil(self.max_episode_length_s / self.step_dt)
-        # Control 29 body joints and hold the 14 finger joints at the asset's
-        # default pose. Grasp defaults without a bar can cause thigh contacts.
-        self.num_actions = 29
-        assert all("hand" in n for n in self.robot.data.joint_names[29:]), "joints 29+ must all be hand joints"
+        # Policy order is independent of USD articulation order.
+        self.policy_joint_ids = resolve_policy_joints(
+            self.robot.data.joint_names, getattr(self.cfg.robot, "policy_joint_names", None)
+        )
+        self.num_actions = len(self.policy_joint_ids)
 
         self.clip_actions = self.cfg.normalization.clip_actions
         self.clip_obs = self.cfg.normalization.clip_observations
@@ -181,8 +183,8 @@ class LocomotionEnv(VecEnv):
             pose_command,
             ang_vel * self.obs_scales.ang_vel,
             projected_gravity * self.obs_scales.projected_gravity,
-            joint_pos[:, :29] * self.obs_scales.joint_pos,
-            joint_vel[:, :29] * self.obs_scales.joint_vel,
+            joint_pos[:, self.policy_joint_ids] * self.obs_scales.joint_pos,
+            joint_vel[:, self.policy_joint_ids] * self.obs_scales.joint_vel,
             action * self.obs_scales.actions,
         ], dim=-1,
         )
@@ -253,7 +255,9 @@ class LocomotionEnv(VecEnv):
         delayed_actions = self.action_buffer.compute(actions)
 
         cliped_actions = torch.clip(delayed_actions, -self.clip_actions, self.clip_actions).to(self.device)
-        processed_actions = cliped_actions * self.action_scale + self.robot.data.default_joint_pos
+        processed_actions = position_targets(
+            self.robot.data.default_joint_pos, cliped_actions, self.policy_joint_ids, self.action_scale
+        )
 
         for _ in range(self.cfg.sim.decimation):
             self.sim_step_counter += 1
@@ -299,14 +303,16 @@ class LocomotionEnv(VecEnv):
             actor_obs, _ = self.compute_current_observations()
             noise_vec = torch.zeros_like(actor_obs[0])
             noise_scales = self.cfg.noise.noise_scales
+            pose_end = 4 + self.pose_command_generator.command.shape[-1]
+            joint_start = pose_end + 6
 
 
-            noise_vec[0:18] = 0  # 4+14=18
-            noise_vec[18:21] = noise_scales.ang_vel * self.obs_scales.ang_vel
-            noise_vec[21:24] = noise_scales.projected_gravity * self.obs_scales.projected_gravity
-            noise_vec[24 : 24 + self.num_actions] = noise_scales.joint_pos * self.obs_scales.joint_pos
-            noise_vec[24 + self.num_actions : 24 + self.num_actions * 2] = noise_scales.joint_vel * self.obs_scales.joint_vel
-            noise_vec[24 + self.num_actions * 2 : 24 + self.num_actions * 3] = 0.0
+            noise_vec[0:pose_end] = 0  # 4+14=18
+            noise_vec[pose_end : pose_end + 3] = noise_scales.ang_vel * self.obs_scales.ang_vel
+            noise_vec[pose_end + 3 : joint_start] = noise_scales.projected_gravity * self.obs_scales.projected_gravity
+            noise_vec[joint_start : joint_start + self.num_actions] = noise_scales.joint_pos * self.obs_scales.joint_pos
+            noise_vec[joint_start + self.num_actions : joint_start + self.num_actions * 2] = noise_scales.joint_vel * self.obs_scales.joint_vel
+            noise_vec[joint_start + self.num_actions * 2 : joint_start + self.num_actions * 3] = 0.0
             self.noise_scale_vec = noise_vec
 
             if self.cfg.scene.height_scanner.enable_height_scan:

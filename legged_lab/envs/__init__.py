@@ -79,3 +79,22 @@ task_registry.register(
 
 
 __all__ = []
+
+
+def _sfyg_configs(phase, no_object=False):
+    from legged_lab.envs.tron2.config import make_configs
+    return make_configs(phase, no_object)
+
+
+task_registry.register_factory(
+    "tron2_sfyg_phase_1_locomotion", LocomotionEnv, lambda: _sfyg_configs(1)
+)
+for _phase, _label in ((2, "teacher"), (3, "student")):
+    task_registry.register_factory(
+        f"tron2_sfyg_phase_{_phase}_{_label}_fixed_bar", FixedBarCollaborationEnv,
+        lambda phase=_phase: _sfyg_configs(phase),
+    )
+    task_registry.register_factory(
+        f"tron2_sfyg_phase_{_phase}_{_label}_no_object", NoObjectEnv,
+        lambda phase=_phase: _sfyg_configs(phase, True),
+    )

@@ -14,6 +14,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--num-actions", type=int, default=29, help="29 for G1; 16 for TRON2 SFYG")
     return parser.parse_args()
 
 
@@ -21,6 +22,8 @@ def main() -> None:
     args = parse_args()
     payload = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     state = payload.get("model_state_dict", payload)
+    if any(key.startswith("residual_actor.") for key in state):
+        raise RuntimeError("Phase-2 residual teachers cannot be exported as a standalone actor; export Phase 1 or 3")
     prefix = "actor." if any(key.startswith("actor.") for key in state) else "student."
     actor_state = {
         key.removeprefix(prefix): value
@@ -53,14 +56,14 @@ def main() -> None:
     with torch.inference_mode():
         policy = torch.jit.trace(actor, example)
         output = policy(example)
-    if output.shape != (1, 29):
-        raise RuntimeError(f"expected a (1, 29) actor output, received {output.shape}")
+    if output.shape != (1, args.num_actions):
+        raise RuntimeError(f"expected a (1, {args.num_actions}) actor output, received {output.shape}")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     policy.save(str(args.output))
     print(
         f"POLICY_EXPORT_PASS source={prefix.removesuffix('.')} "
-        f"input={input_width} output=29 path={args.output}"
+        f"input={input_width} output={args.num_actions} path={args.output}"
     )
 
 

@@ -136,8 +136,11 @@ def zero_velocity_command_target_aligned_stillness_reward(
 def ankle_action_rate_l2(env: BaseEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
     current_actions = env.action_buffer._circular_buffer.buffer[:, -1, :]
     previous_actions = env.action_buffer._circular_buffer.buffer[:, -2, :]
-    ankle_current = current_actions[:, asset_cfg.joint_ids]
-    ankle_previous = previous_actions[:, asset_cfg.joint_ids]
+    joint_ids = asset_cfg.joint_ids
+    if hasattr(env, "policy_joint_ids"):
+        joint_ids = [env.policy_joint_ids.index(i) for i in joint_ids if i in env.policy_joint_ids]
+    ankle_current = current_actions[:, joint_ids]
+    ankle_previous = previous_actions[:, joint_ids]
     penalty = torch.sum(torch.square(ankle_current - ankle_previous), dim=1)
     return penalty
 

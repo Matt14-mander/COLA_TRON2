@@ -217,6 +217,8 @@ class UniformEEPoseCommandWorldFollowingQuatVel(CommandTerm):
 
     @property
     def command(self) -> torch.Tensor:
+        if getattr(self.env.cfg.robot, "single_arm", False):
+            return torch.cat((self.left_quat, self.left_xyz), dim=1)
         return torch.cat(
             (self.left_quat, self.right_quat, self.left_xyz, self.right_xyz), dim=1
         )
@@ -278,6 +280,8 @@ class UniformEEPoseCommandWorldQuat_Straight(CommandTerm):
     @property
     def command(self) -> torch.Tensor:
         """The desired base velocity command in the world frame. Shape is (num_envs, 3)."""
+        if getattr(self.env.cfg.robot, "single_arm", False):
+            return torch.cat((self.left_quat, self.left_xyz), dim=1)
         return torch.cat([self.left_quat, self.right_quat, self.left_xyz, self.right_xyz], dim=1)
     '\n    Implementation specific functions.\n    '
 

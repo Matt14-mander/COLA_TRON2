@@ -162,9 +162,9 @@ class NoObjectEnv(LocomotionEnv):
             self.pose_command_generator.command,
             robot.data.root_ang_vel_b * self.obs_scales.ang_vel,
             robot.data.projected_gravity_b * self.obs_scales.projected_gravity,
-            (robot.data.joint_pos - robot.data.default_joint_pos)[:, :29]
+            (robot.data.joint_pos - robot.data.default_joint_pos)[:, self.policy_joint_ids]
             * self.obs_scales.joint_pos,
-            (robot.data.joint_vel - robot.data.default_joint_vel)[:, :29]
+            (robot.data.joint_vel - robot.data.default_joint_vel)[:, self.policy_joint_ids]
             * self.obs_scales.joint_vel,
             self.action_buffer._circular_buffer.buffer[:, -1, :]
             * self.obs_scales.actions,
@@ -247,12 +247,14 @@ class NoObjectEnv(LocomotionEnv):
             actor_obs, _ = self.compute_current_observations()
             noise_vec = torch.zeros_like(actor_obs[0])
             noise_scales = self.cfg.noise.noise_scales
-            noise_vec[18:21] = noise_scales.ang_vel * self.obs_scales.ang_vel
-            noise_vec[21:24] = (
+            pose_end = 4 + self.pose_command_generator.command.shape[-1]
+            joint_start = pose_end + 6
+            noise_vec[pose_end : pose_end + 3] = noise_scales.ang_vel * self.obs_scales.ang_vel
+            noise_vec[pose_end + 3 : joint_start] = (
                 noise_scales.projected_gravity * self.obs_scales.projected_gravity
             )
-            noise_vec[24:53] = noise_scales.joint_pos * self.obs_scales.joint_pos
-            noise_vec[53:82] = noise_scales.joint_vel * self.obs_scales.joint_vel
+            noise_vec[joint_start : joint_start + self.num_actions] = noise_scales.joint_pos * self.obs_scales.joint_pos
+            noise_vec[joint_start + self.num_actions : joint_start + 2 * self.num_actions] = noise_scales.joint_vel * self.obs_scales.joint_vel
             self.noise_scale_vec = noise_vec
 
             if self.cfg.scene.height_scanner.enable_height_scan:

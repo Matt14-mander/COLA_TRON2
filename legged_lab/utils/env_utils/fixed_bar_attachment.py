@@ -73,6 +73,9 @@ def spawn_fixed_bar_attachment(
     fixed_joint.CreateLocalRot1Attr(Gf.Quatf(1.0))
     fixed_joint.CreateExcludeFromArticulationAttr(True)
 
+    if not cfg.secondary_attachment:
+        return root
+
     point_joint = UsdPhysics.SphericalJoint.Define(
         stage, f"{prim_path}/{point_name}"
     )
@@ -91,6 +94,7 @@ class FixedBarAttachmentCfg(SpawnerCfg):
     """Canonical attachment frames with a selectable welded wrist."""
 
     func: Callable = spawn_fixed_bar_attachment
+    secondary_attachment: bool = True
     robot_prim_name: str = "Robot"
     bar_prim_name: str = "CarriedBar"
     left_wrist_body_name: str = "left_wrist_yaw_link"
