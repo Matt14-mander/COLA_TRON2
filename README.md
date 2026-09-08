@@ -43,6 +43,10 @@ pip install -e .
 source setup_env.sh
 ```
 
+For a PowerShell-based local check, activate the Python environment and run
+`. .\setup_env.ps1`; this also selects an ASCII Warp cache path required when
+the repository path contains non-ASCII characters.
+
 Run the setup script in every new shell after activating the environment. It
 sets the release root, accepts the Isaac Sim EULA, and defaults W&B to offline
 mode. To log online, run `export WANDB_MODE=online` before sourcing it.
@@ -83,6 +87,14 @@ no-object training distribution.
 
 See [deployment/mujoco/README.md](deployment/mujoco/README.md) for command
 ranges, headless checks, and the physics contract.
+
+## TRON2 SFYG port
+
+The repository also contains an SFYG_TRON2A single-arm port with 16 policy
+actions (ten leg and six arm joints), a single-arm carried-bar task, five
+registered training tasks and a dedicated MuJoCo runner. See
+[docs/tron2_migration.md](docs/tron2_migration.md) for validated dimensions,
+training commands, smoke tests and the remaining hardware checks.
 
 ## Citation
 

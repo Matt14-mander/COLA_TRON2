@@ -140,7 +140,7 @@
       "velocity_limit": 3.0
     },
     "gripper2_Joint": {
-      "default_position": 0.025,
+      "default_position": -0.025,
       "stiffness": 80.0,
       "damping": 2.0,
       "effort_limit": 10.0,

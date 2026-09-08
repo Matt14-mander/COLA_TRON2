@@ -16,6 +16,7 @@ from legged_lab.envs.base.collaboration_config import (
     configure_teacher_agent, configure_student_agent,
 )
 from legged_lab.utils.env_utils.fixed_bar_attachment import FixedBarAttachmentCfg
+from legged_lab.terrains import FLAT_TERRAINS_CFG
 
 
 @configclass
@@ -54,15 +55,17 @@ class SFYGRewards:
 
 def _common(cfg, profile):
     cfg.scene.robot = make_sfyg_asset()
-    cfg.scene.terrain_type = "plane"
-    cfg.scene.terrain_generator = None
+    cfg.scene.terrain_type = "generator"
+    cfg.scene.terrain_generator = FLAT_TERRAINS_CFG
     cfg.scene.height_scanner.prim_body_name = "base_Link"
     cfg.scene.foot_sensor_pattern = "ankle_pitch_[LR]_Link"
     cfg.robot.single_arm = True
     cfg.robot.policy_joint_names = profile["policy_joint_names"]
     cfg.robot.action_scale = profile["action_scale"]
     cfg.robot.feet_body_names = profile["feet_body_names"]
-    cfg.robot.terminate_contacts_body_names = ["base_Link", "knee_L_Link", "knee_R_Link", "arm[1-5]_Link"]
+    cfg.robot.terminate_contacts_body_names = [
+        "^(?!(ankle_pitch_[LR]_Link|arm6_Link|gripper.*|gripper_pick)$).*$"
+    ]
     cfg.reward = SFYGRewards()
     for term in (cfg.reward.hand_position, cfg.reward.hand_orientation):
         term.params["asset_cfg"].body_names = profile["ee_body"]
@@ -172,6 +175,8 @@ def make_configs(phase, no_object=False):
             cfg.reward.human_effort = RewardTermCfg(func=collaboration_mdp.human_effort_reward, weight=1., params={"force_scale": 100., "epsilon": 1e-8})
         agent = TeacherAgentCfg() if phase == 2 else StudentAgentCfg()
         (configure_teacher_agent if phase == 2 else configure_student_agent)(agent)
+        if phase == 2:
+            agent.policy.class_name = "ActorCriticWbcEnd2endFollowingWholePipeQuatResidual"
         if phase == 3:
             agent.policy.teacher_action_clip = 5.
         name = f"tron2_sfyg_phase_{phase}_{'teacher' if phase == 2 else 'student'}_{'no_object' if no_object else 'fixed_bar'}"

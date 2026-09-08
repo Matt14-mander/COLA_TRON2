@@ -29,4 +29,9 @@ def run_with_simulation_app(simulation_app: Any, entrypoint: Callable[[], None])
         sys.stderr.flush()
         os._exit(1)
     else:
-        simulation_app.close(skip_cleanup=True)
+        try:
+            simulation_app.close(skip_cleanup=True)
+        except TypeError:
+            # Isaac Sim 4.5 has no skip_cleanup keyword. The released target is
+            # 5.1, but accepting 4.5 here keeps local smoke tests usable.
+            simulation_app.close()

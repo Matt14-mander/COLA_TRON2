@@ -9,7 +9,10 @@ def inspect_variant(description_root, variant):
     if variant not in {p.name for p in (root / "tron2").iterdir() if p.is_dir()}:
         raise ValueError(f"Unknown TRON2 variant: {variant}")
     folder = root / "tron2" / variant
-    urdf = folder / "urdf" / "robot.urdf"
+    # The RL URDF matches the supplied USD articulation (notably gripper2's
+    # signed prismatic range); fall back to the visualization URDF if absent.
+    rl_urdf = folder / "urdf" / "robot_rl.urdf"
+    urdf = rl_urdf if rl_urdf.is_file() else folder / "urdf" / "robot.urdf"
     model = ET.parse(urdf).getroot()
     joints = []
     for joint in model.findall("joint"):

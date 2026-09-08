@@ -10,3 +10,4 @@ slurm-*.out
 slurm-*.err
 .venv-tron2/
 new_backbone_logs/
+.cache/

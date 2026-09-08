@@ -1,8 +1,47 @@
-# MuJoCo locomotion sim2sim
+# MuJoCo sim2sim
 
-The deployment directory contains one sim2sim path: a 29-action policy running
-on the fixed-hand G1 without a carried object. It accepts either a Phase-1
-actor or a Phase-3 student trained on the no-object population.
+This directory contains separate deployment runners for the original G1 and
+the SFYG two-leg, single-arm TRON2A. Both accept a Phase-1 actor or a Phase-3
+student trained on the no-object population. Fixed-bar Phase-2 residual
+policies depend on the Phase-1 backbone and are not standalone deployment
+artifacts.
+
+## SFYG TRON2A
+
+Export a 16-action SFYG checkpoint:
+
+```bash
+python deployment/mujoco/export_policy.py \
+  --checkpoint /path/to/model.pt \
+  --output /path/to/sfyg_policy.jit \
+  --num-actions=16
+```
+
+Run the bundled SFYG MJCF headlessly:
+
+```bash
+python deployment/mujoco/run_sfyg_sim2sim.py \
+  --policy /path/to/sfyg_policy.jit --headless --duration=20
+```
+
+The runner detects either the Phase-1 `650 -> 16` contract or the Phase-3
+student `1650 -> 16` contract. Phase-1 commands use forward velocity, lateral
+velocity, yaw velocity, and body height. Their supported ranges are
+`[-0.3, 0.5] m/s`, `[-0.2, 0.2] m/s`, `[-0.5, 0.5] rad/s`, and
+`[0.6546, 0.7346] m`. Phase-3 uses the masked zero-motion command from
+training and accepts mass observations over the complete `[0.3, 2.5] kg`
+support. The two gripper joints are held at their profile defaults and are not
+policy actions.
+
+The SFYG MJCF runner validates the policy shape, joint names, finite actions,
+command range, and final simulator state. A zero-action policy is only a
+software smoke test: the untrained open-loop biped falls and must not be used
+as evidence of a standing controller.
+
+## Original G1
+
+The G1 path runs a 29-action policy without a carried object. It accepts either
+a Phase-1 actor or a Phase-3 student trained on the no-object population.
 
 The bundled mass-conditioned Phase-3 `student.jit` is loaded by default.
 
