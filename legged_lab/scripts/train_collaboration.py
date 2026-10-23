@@ -1,6 +1,13 @@
 """Train a phase-2 teacher or phase-3 student on static scene populations."""
 
 import argparse
+from pathlib import Path
+import sys
+
+# Prefer this checkout over stale editable installs of another COLA tree.
+ROOT = str(Path(__file__).resolve().parents[2])
+if sys.path[0] != ROOT:
+    sys.path.insert(0, ROOT)
 
 from isaaclab.app import AppLauncher
 import legged_lab.utils.cli_args as cli_args  # isort: skip

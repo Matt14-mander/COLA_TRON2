@@ -8,7 +8,7 @@ from typing import Literal
 from pxr import Gf, Sdf, Usd, UsdPhysics
 
 from isaaclab.sim import SpawnerCfg
-from isaaclab.sim.utils import clone, get_current_stage, standardize_xform_ops
+from isaaclab.sim.utils import clone, get_current_stage
 from isaaclab.utils import configclass
 
 
@@ -29,7 +29,6 @@ def spawn_fixed_bar_attachment(
     del translation, orientation, kwargs
     stage = get_current_stage()
     root = stage.DefinePrim(prim_path, "Xform")
-    standardize_xform_ops(root)
     env_path = prim_path.rsplit("/", 1)[0]
     bar_path = Sdf.Path(f"{env_path}/{cfg.bar_prim_name}")
     left_wrist_path = Sdf.Path(
